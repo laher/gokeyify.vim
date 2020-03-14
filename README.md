@@ -20,7 +20,7 @@ Plug 'laher/gokeyify.vim'
 :GoKeyifyInstall
 ```
 
-NOTE: if you have [async.vim](https://github.com/prabirshrestha/async.vim) installed, it will install asyncrhonously … if not, it'll let you know it's blocking your UI thread
+NOTE: if you have [async.vim](https://github.com/prabirshrestha/async.vim) installed, it will install keyify asyncrhonously … if not, it'll let you know it's blocking your UI thread
 
 ## Usage
 
