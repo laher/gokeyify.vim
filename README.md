@@ -2,31 +2,43 @@
 
 keyify wrapper for vim
 
-## Install (keyify and this plugin)
+Totally copied from [vim-go](https://github.com/fatih/vim-go) and [gorename](https://github.com/mattn/vim-gorename). I just added an installer `:GoKeyifyInstall`
 
-```
-go get honnef.co/go/tools/cmd/keyify
-```
+## Install (this plugin and keyify)
+
+### Install plugin in the usual way
+
+For example, using vim-plug:
 
 ```
 Plug 'laher/gokeyify.vim'
 ```
 
-## Usage
+### Installing keyify (once only)
 
 ```
-:GoKeyify
+:GoKeyifyInstall
 ```
+
+NOTE: if you have async.vim, it will install asyncrhonously … if not, it'll let you know it's blocking the main thread
+
+## Usage
+
+Running keyify 
+
+1. Navigate your cursor to a place where a struct has been disappointingly initialised without field names.
+2. `:GoKeyify`
 
 ## NOTES
 
- * Totally pulled from `fatih/vim-go` and `mattn/vim-gorename`
- * This plugin can be used to replace a small part of vim-go functionality, in the age of LSP. See also:
-   * Plug 'https://github.com/mattn/vim-goimports'
-   * Plug 'https://github.com/mattn/vim-gorename'
-   * Plug 'https://github.com/mattn/vim-goaddtags'
-   * Plug 'https://github.com/mattn/vim-gorun'
-   * Plug 'https://github.com/mattn/vim-goimports'
-   * Plug 'https://github.com/mattn/vim-goimpl'
-   * Plug 'https://github.com/mattn/vim-gosrc'
-   * Plug 'https://github.com/mattn/go-errcheck-vim'
+ * Totally copied from [vim-go](https://github.com/fatih/vim-go) and [gorename](https://github.com/mattn/vim-gorename)
+ * This plugin can be used to replace a small part of vim-go functionality, in the age of LSP. 
+ * See also:
+   * https://github.com/mattn/vim-goimports
+   * https://github.com/mattn/vim-gorename
+   * https://github.com/mattn/vim-goaddtags
+   * https://github.com/mattn/vim-gorun
+   * https://github.com/mattn/vim-goimports
+   * https://github.com/mattn/vim-goimpl
+   * https://github.com/mattn/vim-gosrc
+   * https://github.com/mattn/go-errcheck-vim

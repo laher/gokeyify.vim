@@ -58,7 +58,7 @@ function! s:output_handler(job_id, data, event_type)
 endfunction
 
 function! s:run_maybe_async(argv)
-  if &rtp =~ 'async.vimx'
+  if &rtp =~ 'async.vim'
     let jobid = async#job#start(a:argv, {
         \ 'on_stdout': function('s:output_handler'),
         \ 'on_stderr': function('s:output_handler'),
