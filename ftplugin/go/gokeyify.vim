@@ -4,7 +4,6 @@ set cpo&vim
 
 function! s:gokeyify()
   " Needs: https://github.com/dominikh/go-tools/pull/272
-  "
   let l:cmd = printf('keyify -json %s:#%s', shellescape(expand('%:p')), s:bytes_offset(line('.'), col('.')))
   let l:out = system(l:cmd)
   if v:shell_error != 0
@@ -47,6 +46,39 @@ function! s:gokeyify()
 
   call setpos("'<", vis_start)
   call setpos("'>", vis_end)
+endfunction
+
+function! s:output_handler(job_id, data, event_type)
+    if a:event_type == "exit"
+      echom 'Done. Exit code: ' . a:data
+    else
+      echo a:job_id . ' ' . a:event_type
+      echo join(a:data, "; ")
+    endif
+endfunction
+
+function! s:run_maybe_async(argv)
+  if &rtp =~ 'async.vimx'
+    let jobid = async#job#start(a:argv, {
+        \ 'on_stdout': function('s:output_handler'),
+        \ 'on_stderr': function('s:output_handler'),
+        \ 'on_exit': function('s:output_handler'),
+    \ })
+    if jobid > 0
+        echom 'job started'
+    else
+        echom 'job failed to start'
+    endif
+  else
+    echom 'async.vim not available. Running synchronously: ' . join(a:argv)
+    let l:out = system(join(a:argv, ' '))
+    echo l:out
+  endif
+endfunction
+
+function! s:gokeyifyinstall()
+  let argv = ['go', 'get', '-u', 'honnef.co/go/tools/cmd/keyify']
+  call s:run_maybe_async(argv)
 endfunction
 
 function! s:chomp(string)
@@ -97,3 +129,4 @@ unlet s:cpo_save
 
 " vim: sw=2 ts=2 et
 command! -nargs=0 GoKeyify call s:gokeyify()
+command! -nargs=0 GoKeyifyInstall call s:gokeyifyinstall()
